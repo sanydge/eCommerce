@@ -9,9 +9,9 @@ class SearchProductView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(SearchProductView, self).get_context_data(*args, **kwargs)
-        query = self.request.get('q')
+        query = self.request.GET.get('q')
         context['query'] = query
-        SearchQuery.object.create(query=query)
+        # SearchQuery.object.create(query=query)
         return context
 
     def get_queryset(self, *args, **kwargs):
@@ -22,4 +22,3 @@ class SearchProductView(ListView):
         if query is not None:
             return Product.objects.filter(title__icontains=query)
         return Product.objects.featured()
-
